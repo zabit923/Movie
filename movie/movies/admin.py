@@ -1,7 +1,18 @@
+from django import forms
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 from .models import Category, Genre, Movie, MovieShots, Actor, Rating, RatingStar, Reviews
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+
+
+
+
+class MovieAdminForm(forms.ModelForm):
+    description = forms.CharField(label='Описание', widget=CKEditorUploadingWidget())
+    class Meta:
+        model = Movie
+        fields = '__all__'
 
 
 @admin.register(Category)
@@ -36,6 +47,7 @@ class MovieAdmin(admin.ModelAdmin):
     save_on_top = True
     save_as = True
     list_editable = ('draft',)
+    form = MovieAdminForm
     readonly_fields = ('get_image',)
     fieldsets = (
         (None, {
@@ -60,11 +72,9 @@ class MovieAdmin(admin.ModelAdmin):
     )
 
     def get_image(self, obj):
-        return mark_safe(f'<img src={obj.poster.url} width="170", height="150"')
+        return mark_safe(f'<img src={obj.poster.url} width="170", height="190"')
 
     get_image.short_description = 'Постер'
-
-
 
 
 @admin.register(Genre)
@@ -83,7 +93,6 @@ class MovieShotsAdmin(admin.ModelAdmin):
     get_image.short_description = 'Изображение'
 
 
-
 @admin.register(Actor)
 class ActorAdmin(admin.ModelAdmin):
     list_display = ('name', 'age', 'get_image')
@@ -93,7 +102,6 @@ class ActorAdmin(admin.ModelAdmin):
         return mark_safe(f'<img src={obj.Image.url} width="50", height="60"')
 
     get_image.short_description = 'Изображение'
-
 
 
 @admin.register(Reviews)
@@ -110,4 +118,3 @@ class RatingAdmin(admin.ModelAdmin):
 admin.site.register(RatingStar)
 admin.site.site_title = 'Django Movies'
 admin.site.site_header = 'Django Movies'
-

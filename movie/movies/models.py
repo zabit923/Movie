@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date
 from django.urls import reverse
+from django.utils import timezone
 
 
 
@@ -121,10 +122,13 @@ class Rating(models.Model):
         verbose_name_plural = 'Рейтинги'
 
 
+
+
 class Reviews(models.Model):
     email = models.EmailField()
     name = models.CharField('имя', max_length=100)
     text = models.TextField('Сообщение', max_length=5000)
+    created_at = models.DateTimeField(default=timezone.now)
     parent = models.ForeignKey(
         'self',
         verbose_name='Родитель',
@@ -139,3 +143,4 @@ class Reviews(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
+
