@@ -42,6 +42,7 @@ class Genre(models.Model):
         return self.name
 
     class Meta:
+        app_label = 'movies'
         verbose_name = 'Жанр'
         verbose_name_plural = 'Жанры'
 
