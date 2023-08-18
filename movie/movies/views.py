@@ -12,20 +12,10 @@ class MovieView(ListView):
     model = Movie
     queryset = Movie.objects.filter(draft=False)
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['categories'] = Category.objects.all()
-        return context
-
 
 class MovieDetailViews(DetailView):
     model = Movie
     slug_field = 'url'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['categories'] = Category.objects.all()
-        return context
 
 
 class AddReview(View):
