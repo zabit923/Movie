@@ -26,14 +26,18 @@
                     <li>
                         <span><b>Режиссер фильмов:</b>
                             {% for movie in actor.film_director.all %}
-                                {{ movie.title }},
+                                <a href="{{ movie.get_absolute_url }}" class="editContent">
+                                    {{ movie.title }},
+                                </a>
                             {% endfor %}
                         </span>
                     </li>
                     <li>
-                        <span><b>Снимался в:</b>
+                        <span><b>Снимался(ась) в:</b>
                             {% for movie in actor.film_actor.all %}
-                                {{ movie.title }},
+                                <a href="{{ movie.get_absolute_url }}" class="editContent">
+                                    {{ movie.title }},
+                                </a>
                             {% endfor %}
                         </span>
                     </li>
